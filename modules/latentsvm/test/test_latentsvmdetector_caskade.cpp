@@ -59,14 +59,14 @@ const float true_scores[3] = {-0.383931f, -0.825876f, -0.959934f};
 const float score_thr = 0.05f;
 const CvRect true_bounding_boxes[3] = {cvRect(0, 45, 362, 452), cvRect(304, 0, 64, 80), cvRect(236, 0, 108, 59)};
 
-class CV_LatentSVMDetectorCaskadTest : public cvtest::BaseTest
+class CV_LatentSVMDetectorCaskadeTest : public cvtest::BaseTest
 {
 protected:
     void run(int);
     bool isEqual(CvRect r1, CvRect r2, int eps);
 };
 
-bool CV_LatentSVMDetectorCaskadTest::isEqual(CvRect r1, CvRect r2, int eps)
+bool CV_LatentSVMDetectorCaskadeTest::isEqual(CvRect r1, CvRect r2, int eps)
 {
     return (std::abs(r1.x - r2.x) <= eps
             && std::abs(r1.y - r2.y) <= eps
@@ -74,7 +74,7 @@ bool CV_LatentSVMDetectorCaskadTest::isEqual(CvRect r1, CvRect r2, int eps)
             && std::abs(r1.height - r2.height) <= eps);
 }
 
-void CV_LatentSVMDetectorCaskadTest::run( int /* start_from */)
+void CV_LatentSVMDetectorCaskadeTest::run( int /* start_from */)
 {
     string img_path = string(ts->get_data_path()) + "latentsvmdetector/cat.png";
     string model_path = string(ts->get_data_path()) + "latentsvmdetector/models_VOC2007_caskad/cat.xml";
@@ -92,8 +92,8 @@ void CV_LatentSVMDetectorCaskadTest::run( int /* start_from */)
         return;
     }
 
-    CvLatentSvmDetectorCaskad* detector;
-    detector = cv::lsvmcascade::cvLoadLatentSvmDetectorCaskad(model_path.c_str());
+    CvLatentSvmDetectorCaskade* detector;
+    detector = cv::lsvmcascade::cvLoadLatentSvmDetectorCaskade(model_path.c_str());
     if (!detector)
     {
         ts->set_failed_test_info( cvtest::TS::FAIL_INVALID_TEST_DATA );
@@ -103,7 +103,7 @@ void CV_LatentSVMDetectorCaskadTest::run( int /* start_from */)
 
     CvMemStorage* storage = cvCreateMemStorage(0);
     CvSeq* detections = 0;
-    detections = cv::lsvmcascade::cvLatentSvmDetectObjectsCaskad(image, detector, storage, 0.5f);
+    detections = cv::lsvmcascade::cvLatentSvmDetectObjectsCaskade(image, detector, storage, 0.5f);
     if (detections->total != num_detections)
     {
         ts->set_failed_test_info( cvtest::TS::FAIL_MISMATCH );
@@ -127,13 +127,13 @@ void CV_LatentSVMDetectorCaskadTest::run( int /* start_from */)
     init.terminate();
 #endif
     cvReleaseMemStorage( &storage );
-    cv::lsvmcascade::cvReleaseLatentSvmDetectorCaskad( &detector );
+    cv::lsvmcascade::cvReleaseLatentSvmDetectorCaskade( &detector );
     cvReleaseImage( &image );
 }
 
 // Test for c++ version of Latent SVM
 
-class LatentSVMDetectorCaskadTest : public cvtest::BaseTest
+class LatentSVMDetectorCaskadeTest : public cvtest::BaseTest
 {
 protected:
     void run(int);
@@ -201,7 +201,7 @@ bool compareResults( const vector<lsvmcascade::LatentSvmDetector::ObjectDetectio
     return true;
 }
 
-void LatentSVMDetectorCaskadTest::run( int /* start_from */)
+void LatentSVMDetectorCaskadeTest::run( int /* start_from */)
 {
     string img_path_cat = string(ts->get_data_path()) + "latentsvmdetector/cat.png";
     string img_path_cars = string(ts->get_data_path()) + "latentsvmdetector/cars.png";
@@ -305,5 +305,5 @@ void LatentSVMDetectorCaskadTest::run( int /* start_from */)
     ts->set_failed_test_info( cvtest::TS::OK);
 }
 
-TEST(Objdetect_LatentSVMDetectorCaskad_c, DISABLED_regression) { CV_LatentSVMDetectorCaskadTest test; test.safe_run(); }
-TEST(Objdetect_LatentSVMDetectorCaskad_cpp, DISABLED_regression) { LatentSVMDetectorCaskadTest test; test.safe_run(); }
+TEST(Objdetect_LatentSVMDetectorCaskade_c, DISABLED_regression) { CV_LatentSVMDetectorCaskadeTest test; test.safe_run(); }
+TEST(Objdetect_LatentSVMDetectorCaskade_cpp, DISABLED_regression) { LatentSVMDetectorCaskadeTest test; test.safe_run(); }

@@ -44,7 +44,7 @@ typedef struct{
     int sizeY;
     int numFeatures;
     float *map;
-} CvLSVMFeatureMapCaskad;
+} CvLSVMFeatureMapCaskade;
 
 // DataType: STRUCT featurePyramid
 //
@@ -52,8 +52,8 @@ typedef struct{
 // pyramid      - array of pointers to feature map at different levels
 typedef struct{
     int numLevels;
-    CvLSVMFeatureMapCaskad **pyramid;
-} CvLSVMFeaturePyramidCaskad;
+    CvLSVMFeatureMapCaskade **pyramid;
+} CvLSVMFeaturePyramidCaskade;
 
 // DataType: STRUCT filterDisposition
 // The structure stores preliminary results in optimization process

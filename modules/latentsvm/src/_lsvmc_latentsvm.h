@@ -21,7 +21,7 @@ namespace lsvmcascade
 // (pyramid constructed both contrast and non-contrast image)
 //////////////////////////////////////////////////////////////
 
-void FeaturePyramid32(CvLSVMFeaturePyramidCaskad* H, int maxX, int maxY);
+void FeaturePyramid32(CvLSVMFeaturePyramidCaskade* H, int maxX, int maxY);
 
 /*
 // Creation PSA feature pyramid
@@ -35,15 +35,15 @@ void FeaturePyramid32(CvLSVMFeaturePyramidCaskad* H, int maxX, int maxY);
 // RESULT
 // PSA feature pyramid
 */
-CvLSVMFeaturePyramidCaskad* createPCA_FeaturePyramid(CvLSVMFeaturePyramidCaskad* H, 
-                                               CvLatentSvmDetectorCaskad* detector, 
+CvLSVMFeaturePyramidCaskade* createPCA_FeaturePyramid(CvLSVMFeaturePyramidCaskade* H, 
+                                               CvLatentSvmDetectorCaskade* detector, 
                                                int maxX, int maxY);
 
 /*
 // Getting feature pyramid  
 //
 // API
-// int getFeaturePyramid(IplImage * image, const CvLSVMFilterObjectCaskad **all_F, 
+// int getFeaturePyramid(IplImage * image, const CvLSVMFilterObjectCaskade **all_F, 
                       const int n_f,
                       const int lambda, const int k, 
                       const int startX, const int startY, 
@@ -61,7 +61,7 @@ CvLSVMFeaturePyramidCaskad* createPCA_FeaturePyramid(CvLSVMFeaturePyramidCaskad*
 // RESULT
 // Error status
 */
-int getFeaturePyramid(IplImage * image, CvLSVMFeaturePyramidCaskad **maps);
+int getFeaturePyramid(IplImage * image, CvLSVMFeaturePyramidCaskade **maps);
 
 /*
 // Getting feature map for the selected subimage  
@@ -76,7 +76,7 @@ int getFeaturePyramid(IplImage * image, CvLSVMFeaturePyramidCaskad **maps);
 // RESULT
 // Error status
 */
-int getFeatureMaps(const IplImage * image, const int k, CvLSVMFeatureMapCaskad **map);
+int getFeatureMaps(const IplImage * image, const int k, CvLSVMFeatureMapCaskade **map);
 
 
 /*
@@ -92,7 +92,7 @@ int getFeatureMaps(const IplImage * image, const int k, CvLSVMFeatureMapCaskad *
 // RESULT
 // Error status
 */
-int normalizeAndTruncate(CvLSVMFeatureMapCaskad *map, const float alfa);
+int normalizeAndTruncate(CvLSVMFeatureMapCaskade *map, const float alfa);
 
 /*
 // Feature map reduction
@@ -108,7 +108,7 @@ int normalizeAndTruncate(CvLSVMFeatureMapCaskad *map, const float alfa);
 // RESULT
 // Error status
 */
-int PCAFeatureMaps(CvLSVMFeatureMapCaskad *map);
+int PCAFeatureMaps(CvLSVMFeatureMapCaskade *map);
 
 //////////////////////////////////////////////////////////////
 // search object
@@ -187,7 +187,7 @@ int clippingBoxes(int width, int height,
 // RESULT
 // Feature pyramid with nullable border
 */
-CvLSVMFeaturePyramidCaskad* createFeaturePyramidWithBorder(IplImage *image,
+CvLSVMFeaturePyramidCaskade* createFeaturePyramidWithBorder(IplImage *image,
                                                int maxXBorder, int maxYBorder);
 
 /*
@@ -195,7 +195,7 @@ CvLSVMFeaturePyramidCaskad* createFeaturePyramidWithBorder(IplImage *image,
 //
 // API
 // int searchObjectThresholdSomeComponents(const featurePyramid *H,
-                                           const CvLSVMFilterObjectCaskad **filters, 
+                                           const CvLSVMFilterObjectCaskade **filters, 
                                            int kComponents, const int *kPartFilters,
                                            const float *b, float scoreThreshold,
                                            CvPoint **points, CvPoint **oppPoints,
@@ -215,9 +215,9 @@ CvLSVMFeaturePyramidCaskad* createFeaturePyramidWithBorder(IplImage *image,
 // RESULT
 // Error status
 */
-int searchObjectThresholdSomeComponents(const CvLSVMFeaturePyramidCaskad *H,
-										const CvLSVMFeaturePyramidCaskad *H_PCA,
-                                        const CvLSVMFilterObjectCaskad **filters, 
+int searchObjectThresholdSomeComponents(const CvLSVMFeaturePyramidCaskade *H,
+										const CvLSVMFeaturePyramidCaskade *H_PCA,
+                                        const CvLSVMFilterObjectCaskade **filters, 
                                         int kComponents, const int *kPartFilters,
                                         const float *b, float scoreThreshold,
                                         CvPoint **points, CvPoint **oppPoints,
@@ -254,7 +254,7 @@ int getOppositePoint(CvPoint point,
 //
 // API
 // int showRootFilterBoxes(const IplImage *image,
-                           const CvLSVMFilterObjectCaskad *filter, 
+                           const CvLSVMFilterObjectCaskade *filter, 
                            CvPoint *points, int *levels, int kPoints,
                            CvScalar color, int thickness, 
                            int line_type, int shift);
@@ -274,7 +274,7 @@ int getOppositePoint(CvPoint point,
 // Error status
 */
 int showRootFilterBoxes(IplImage *image,
-                        const CvLSVMFilterObjectCaskad *filter, 
+                        const CvLSVMFilterObjectCaskade *filter, 
                         CvPoint *points, int *levels, int kPoints,
                         CvScalar color, int thickness, 
                         int line_type, int shift);
@@ -284,7 +284,7 @@ int showRootFilterBoxes(IplImage *image,
 //
 // API
 // int showPartFilterBoxes(const IplImage *image,
-                           const CvLSVMFilterObjectCaskad *filter, 
+                           const CvLSVMFilterObjectCaskade *filter, 
                            CvPoint *points, int *levels, int kPoints,
                            CvScalar color, int thickness, 
                            int line_type, int shift);
@@ -305,7 +305,7 @@ int showRootFilterBoxes(IplImage *image,
 // Error status
 */
 int showPartFilterBoxes(IplImage *image,
-                        const CvLSVMFilterObjectCaskad **filters,
+                        const CvLSVMFilterObjectCaskade **filters,
                         int n, CvPoint **partsDisplacement, 
                         int *levels, int kPoints,
                         CvScalar color, int thickness, 

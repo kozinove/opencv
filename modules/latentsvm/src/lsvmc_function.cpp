@@ -1,10 +1,11 @@
+#include "precomp.hpp"
 #include "_lsvmc_function.h"
 namespace cv
 {
 namespace lsvmcascade
 {
 
-float calcM    (int k,int di,int dj, const CvLSVMFeaturePyramidCaskad * H, const CvLSVMFilterObjectCaskad *filter){
+float calcM    (int k,int di,int dj, const CvLSVMFeaturePyramidCaskade * H, const CvLSVMFilterObjectCaskade *filter){
     unsigned int i, j;
     float m = 0.0f;
     for(j = dj; j < dj + filter->sizeY; j++){
@@ -15,7 +16,7 @@ float calcM    (int k,int di,int dj, const CvLSVMFeaturePyramidCaskad * H, const
     }
     return m;
 }
-float calcM_PCA(int k,int di,int dj, const CvLSVMFeaturePyramidCaskad * H, const CvLSVMFilterObjectCaskad *filter){
+float calcM_PCA(int k,int di,int dj, const CvLSVMFeaturePyramidCaskade * H, const CvLSVMFilterObjectCaskade *filter){
     unsigned int i, j;
     float m = 0.0f;
     for(j = dj; j < dj + filter->sizeY; j++){
@@ -27,7 +28,7 @@ float calcM_PCA(int k,int di,int dj, const CvLSVMFeaturePyramidCaskad * H, const
 
     return m;
 }
-float calcM_PCA_cash(int k,int di,int dj, const CvLSVMFeaturePyramidCaskad * H, const CvLSVMFilterObjectCaskad *filter, float * cashM, int * maskM, int step){
+float calcM_PCA_cash(int k,int di,int dj, const CvLSVMFeaturePyramidCaskade * H, const CvLSVMFilterObjectCaskade *filter, float * cashM, int * maskM, int step){
     unsigned int i, j, mean;
     unsigned int n;
     float m = 0.0f;
@@ -79,7 +80,7 @@ float calcM_PCA_cash(int k,int di,int dj, const CvLSVMFeaturePyramidCaskad * H, 
     }
     return m;
 }
-float calcFine (const CvLSVMFilterObjectCaskad *filter, int di, int dj){
+float calcFine (const CvLSVMFilterObjectCaskade *filter, int di, int dj){
     return filter->fineFunction[0] * di      + filter->fineFunction[1] * dj + 
            filter->fineFunction[2] * di * di + filter->fineFunction[3] * dj * dj;
 }

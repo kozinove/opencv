@@ -4,11 +4,11 @@ namespace cv
 {
 namespace lsvmcascade
 {
-int allocFilterObject(CvLSVMFilterObjectCaskad **obj, const int sizeX,
+int allocFilterObject(CvLSVMFilterObjectCaskade **obj, const int sizeX,
                       const int sizeY, const int numFeatures) 
 {
     int i;
-    (*obj) = (CvLSVMFilterObjectCaskad *)malloc(sizeof(CvLSVMFilterObjectCaskad));
+    (*obj) = (CvLSVMFilterObjectCaskade *)malloc(sizeof(CvLSVMFilterObjectCaskade));
     (*obj)->sizeX           = sizeX;
     (*obj)->sizeY           = sizeY;
     (*obj)->numFeatures     = numFeatures;
@@ -27,7 +27,7 @@ int allocFilterObject(CvLSVMFilterObjectCaskad **obj, const int sizeX,
     }
     return LATENT_SVM_OK;
 }
-int freeFilterObject (CvLSVMFilterObjectCaskad **obj)
+int freeFilterObject (CvLSVMFilterObjectCaskade **obj)
 {
     if(*obj == NULL) return LATENT_SVM_MEM_NULL;
     free((*obj)->H);
@@ -36,11 +36,11 @@ int freeFilterObject (CvLSVMFilterObjectCaskad **obj)
     return LATENT_SVM_OK;
 }
 
-int allocFeatureMapObject(CvLSVMFeatureMapCaskad **obj, const int sizeX, 
+int allocFeatureMapObject(CvLSVMFeatureMapCaskade **obj, const int sizeX, 
                           const int sizeY, const int numFeatures)
 {
     int i;
-    (*obj) = (CvLSVMFeatureMapCaskad *)malloc(sizeof(CvLSVMFeatureMapCaskad));
+    (*obj) = (CvLSVMFeatureMapCaskade *)malloc(sizeof(CvLSVMFeatureMapCaskade));
     (*obj)->sizeX       = sizeX;
     (*obj)->sizeY       = sizeY;
     (*obj)->numFeatures = numFeatures;
@@ -52,7 +52,7 @@ int allocFeatureMapObject(CvLSVMFeatureMapCaskad **obj, const int sizeX,
     }
     return LATENT_SVM_OK;
 }
-int freeFeatureMapObject (CvLSVMFeatureMapCaskad **obj)
+int freeFeatureMapObject (CvLSVMFeatureMapCaskade **obj)
 {
     if(*obj == NULL) return LATENT_SVM_MEM_NULL;
     free((*obj)->map);
@@ -61,17 +61,17 @@ int freeFeatureMapObject (CvLSVMFeatureMapCaskad **obj)
     return LATENT_SVM_OK;
 }
 
-int allocFeaturePyramidObject(CvLSVMFeaturePyramidCaskad **obj,
+int allocFeaturePyramidObject(CvLSVMFeaturePyramidCaskade **obj,
                               const int numLevels) 
 {
-    (*obj) = (CvLSVMFeaturePyramidCaskad *)malloc(sizeof(CvLSVMFeaturePyramidCaskad));
+    (*obj) = (CvLSVMFeaturePyramidCaskade *)malloc(sizeof(CvLSVMFeaturePyramidCaskade));
     (*obj)->numLevels = numLevels;
-    (*obj)->pyramid    = (CvLSVMFeatureMapCaskad **)malloc(
-                         sizeof(CvLSVMFeatureMapCaskad *) * numLevels);
+    (*obj)->pyramid    = (CvLSVMFeatureMapCaskade **)malloc(
+                         sizeof(CvLSVMFeatureMapCaskade *) * numLevels);
     return LATENT_SVM_OK;
 }
 
-int freeFeaturePyramidObject (CvLSVMFeaturePyramidCaskad **obj)
+int freeFeaturePyramidObject (CvLSVMFeaturePyramidCaskade **obj)
 {
     int i; 
     if(*obj == NULL) return LATENT_SVM_MEM_NULL;

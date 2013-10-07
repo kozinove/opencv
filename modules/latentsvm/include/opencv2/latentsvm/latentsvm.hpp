@@ -47,10 +47,11 @@
 
 #ifdef __cplusplus
 #include <map>
-#include <deque>
+#include <vector>
+#endif
 
 extern "C" {
-#endif
+
 
 
 /****************************************************************************************\
@@ -82,7 +83,7 @@ typedef struct CvLSVMFilterPosition
 //                   used formula H[(j * sizeX + i) * p + k], where
 //                   k - component of feature vector in cell (i, j)
 // END OF FILTER DESCRIPTION
-typedef struct CvLSVMFilterObjectCaskad{
+typedef struct CvLSVMFilterObjectCaskade{
     CvLSVMFilterPosition V;
     float fineFunction[4];
     int sizeX;
@@ -94,7 +95,7 @@ typedef struct CvLSVMFilterObjectCaskad{
     float Hypothesis_PCA, Deformation_PCA;
     int deltaX;
     int deltaY;
-} CvLSVMFilterObjectCaskad;
+} CvLSVMFilterObjectCaskade;
 
 // data type: STRUCT CvLatentSvmDetector
 // structure contains internal representation of trained Latent SVM detector
@@ -104,18 +105,18 @@ typedef struct CvLSVMFilterObjectCaskad{
 // filters				- root and part filters for all model components
 // b					- biases for all model components
 // score_threshold		- confidence level threshold
-typedef struct CvLatentSvmDetectorCaskad
+typedef struct CvLatentSvmDetectorCaskade
 {
     int num_filters;
     int num_components;
     int* num_part_filters;
-    CvLSVMFilterObjectCaskad** filters;
+    CvLSVMFilterObjectCaskade** filters;
     float* b;
     float score_threshold;
     float *pca;
     int pca_size;
 }
-CvLatentSvmDetectorCaskad;
+CvLatentSvmDetectorCaskade;
 
 // data type: STRUCT CvObjectDetection
 // structure contains the bounding box and confidence level for detected object
@@ -126,7 +127,7 @@ typedef struct CvObjectDetection
     CvRect rect;
     float score;
 } CvObjectDetection;
-
+}
 //////////////// Object Detection using Latent SVM //////////////
 
 
@@ -145,9 +146,8 @@ namespace cv
 {
 namespace lsvmcascade
 {
-CVAPI(CvLatentSvmDetectorCaskad*) cvLoadLatentSvmDetectorCaskad(const char* filename);
-}
-}
+CVAPI(CvLatentSvmDetectorCaskade*) cvLoadLatentSvmDetectorCaskade(const char* filename);
+
 /*
 // release memory allocated for CvLatentSvmDetector structure
 //
@@ -157,13 +157,7 @@ CVAPI(CvLatentSvmDetectorCaskad*) cvLoadLatentSvmDetectorCaskad(const char* file
 // detector				- CvLatentSvmDetector structure to be released
 // OUTPUT
 */
-namespace cv
-{
-namespace lsvmcascade
-{
-CVAPI(void) cvReleaseLatentSvmDetectorCaskad(CvLatentSvmDetectorCaskad** detector);
-}
-}
+CVAPI(void) cvReleaseLatentSvmDetectorCaskade(CvLatentSvmDetectorCaskade** detector);
 /*
 // find rectangular regions in the given image that are likely
 // to contain objects and corresponding confidence levels
@@ -184,20 +178,14 @@ CVAPI(void) cvReleaseLatentSvmDetectorCaskad(CvLatentSvmDetectorCaskad** detecto
 // OUTPUT
 // sequence of detected objects (bounding boxes and confidence levels stored in CvObjectDetection structures)
 */
-namespace cv
-{
-namespace lsvmcascade
-{
-
-CVAPI(CvSeq*) cvLatentSvmDetectObjectsCaskad(IplImage* image,
-                                CvLatentSvmDetectorCaskad* detector,
+CVAPI(CvSeq*) cvLatentSvmDetectObjectsCaskade(IplImage* image,
+                                CvLatentSvmDetectorCaskade* detector,
                                 CvMemStorage* storage,
                                 float overlap_threshold CV_DEFAULT(0.5f));
 }
 }
-
 #ifdef __cplusplus
-}
+
 
 
 namespace cv
@@ -242,7 +230,7 @@ public:
     size_t getClassCount() const;
 
 private:
-    vector<CvLatentSvmDetectorCaskad*> detectors;
+    vector<CvLatentSvmDetectorCaskade*> detectors;
     vector<string> classNames;
 };
 }

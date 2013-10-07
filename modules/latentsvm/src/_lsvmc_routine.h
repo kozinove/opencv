@@ -17,18 +17,18 @@ namespace lsvmcascade
 // with all fields including arrays
 // Error status is return value
 //////////////////////////////////////////////////////////////
-int allocFilterObject(CvLSVMFilterObjectCaskad **obj, const int sizeX, const int sizeY, 
+int allocFilterObject(CvLSVMFilterObjectCaskade **obj, const int sizeX, const int sizeY, 
                       const int p);
-int freeFilterObject (CvLSVMFilterObjectCaskad **obj);
+int freeFilterObject (CvLSVMFilterObjectCaskade **obj);
 
-int allocFeatureMapObject(CvLSVMFeatureMapCaskad **obj, const int sizeX, const int sizeY,
+int allocFeatureMapObject(CvLSVMFeatureMapCaskade **obj, const int sizeX, const int sizeY,
                           const int p);
-int freeFeatureMapObject (CvLSVMFeatureMapCaskad **obj);
+int freeFeatureMapObject (CvLSVMFeatureMapCaskade **obj);
 
-int allocFeaturePyramidObject(CvLSVMFeaturePyramidCaskad **obj, 
+int allocFeaturePyramidObject(CvLSVMFeaturePyramidCaskade **obj, 
                               const int countLevel);
 
-int freeFeaturePyramidObject (CvLSVMFeaturePyramidCaskad **obj);
+int freeFeaturePyramidObject (CvLSVMFeaturePyramidCaskade **obj);
 
 }
 }

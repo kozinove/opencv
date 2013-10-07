@@ -75,7 +75,7 @@ namespace lsvmcascade
               const char *modelPath,// model path
              
               // output parametrs
-              CvLSVMFilterObjectCaskad ***filters,
+              CvLSVMFilterObjectCaskade ***filters,
               int *kFilters, 
               int *kComponents, 
               int **kPartFilters, 

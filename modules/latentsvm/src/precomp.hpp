@@ -47,7 +47,12 @@
 #include "cvconfig.h"
 #endif
 
-#include "opencv2/objdetect/latentsvm_caskad.hpp"
+#ifdef __cplusplus
+#include <map>
+#include <deque>
+#endif
+
+#include "opencv2/latentsvm/latentsvm.hpp"
 #include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/imgproc/imgproc_c.h"
 #include "opencv2/core/core_c.h"

@@ -12,17 +12,17 @@ const int pca_size = 31;
 // load trained detector from a file
 //
 // API
-// CvLatentSvmDetectorCaskad* cvLoadLatentSvmDetector(const char* filename);
+// CvLatentSvmDetectorCaskade* cvLoadLatentSvmDetector(const char* filename);
 // INPUT
 // filename             - path to the file containing the parameters of
 //                      - trained Latent SVM detector
 // OUTPUT
 // trained Latent SVM detector in internal representation
 */
-CvLatentSvmDetectorCaskad* cvLoadLatentSvmDetectorCaskad(const char* filename)
+CvLatentSvmDetectorCaskade* cvLoadLatentSvmDetectorCaskade(const char* filename)
 {
-    CvLatentSvmDetectorCaskad* detector = 0;
-    CvLSVMFilterObjectCaskad** filters = 0;
+    CvLatentSvmDetectorCaskade* detector = 0;
+    CvLSVMFilterObjectCaskade** filters = 0;
     int kFilters = 0;
     int kComponents = 0;
     int* kPartFilters = 0;
@@ -34,7 +34,7 @@ CvLatentSvmDetectorCaskad* cvLoadLatentSvmDetectorCaskad(const char* filename)
     err_code = loadModel(filename, &filters, &kFilters, &kComponents, &kPartFilters, &b, &scoreThreshold, &PCAcoeff);
     if (err_code != LATENT_SVM_OK) return 0;
 
-    detector = (CvLatentSvmDetectorCaskad*)malloc(sizeof(CvLatentSvmDetectorCaskad));
+    detector = (CvLatentSvmDetectorCaskade*)malloc(sizeof(CvLatentSvmDetectorCaskade));
     detector->filters = filters;
     detector->b = b;
     detector->num_components = kComponents;
@@ -48,15 +48,15 @@ CvLatentSvmDetectorCaskad* cvLoadLatentSvmDetectorCaskad(const char* filename)
 }
 
 /*
-// release memory allocated for CvLatentSvmDetectorCaskad structure
+// release memory allocated for CvLatentSvmDetectorCaskade structure
 //
 // API
-// void cvReleaseLatentSvmDetector(CvLatentSvmDetectorCaskad** detector);
+// void cvReleaseLatentSvmDetector(CvLatentSvmDetectorCaskade** detector);
 // INPUT
-// detector             - CvLatentSvmDetectorCaskad structure to be released
+// detector             - CvLatentSvmDetectorCaskade structure to be released
 // OUTPUT
 */
-CVAPI(void) cvReleaseLatentSvmDetectorCaskad(CvLatentSvmDetectorCaskad** detector)
+CVAPI(void) cvReleaseLatentSvmDetectorCaskade(CvLatentSvmDetectorCaskade** detector)
 {
     free((*detector)->b);
     free((*detector)->num_part_filters);
@@ -77,7 +77,7 @@ CVAPI(void) cvReleaseLatentSvmDetectorCaskad(CvLatentSvmDetectorCaskad** detecto
 //
 // API
 // CvSeq* cvLatentSvmDetectObjects(const IplImage* image,
-//                                  CvLatentSvmDetectorCaskad* detector,
+//                                  CvLatentSvmDetectorCaskade* detector,
 //                                  CvMemStorage* storage,
 //                                  float overlap_threshold = 0.5f);
 // INPUT
@@ -89,13 +89,13 @@ CVAPI(void) cvReleaseLatentSvmDetectorCaskad(CvLatentSvmDetectorCaskad** detecto
 // OUTPUT
 // sequence of detected objects (bounding boxes and confidence levels stored in CvObjectDetection structures)
 */
-CvSeq* cvLatentSvmDetectObjectsCaskad(IplImage* image,
-                                CvLatentSvmDetectorCaskad* detector,
+CvSeq* cvLatentSvmDetectObjectsCaskade(IplImage* image,
+                                CvLatentSvmDetectorCaskade* detector,
                                 CvMemStorage* storage,
                                 float overlap_threshold)
 {
-    CvLSVMFeaturePyramidCaskad *H = 0;
-	CvLSVMFeaturePyramidCaskad *H_PCA = 0;
+    CvLSVMFeaturePyramidCaskade *H = 0;
+	CvLSVMFeaturePyramidCaskade *H_PCA = 0;
     CvPoint *points = 0, *oppPoints = 0;
     int kPoints = 0;
     float *score = 0;
@@ -111,7 +111,7 @@ CvSeq* cvLatentSvmDetectObjectsCaskad(IplImage* image,
         cvCvtColor(image, image, CV_BGR2RGB);
 
     // Getting maximum filter dimensions
-    getMaxFilterDims((const CvLSVMFilterObjectCaskad**)(detector->filters), detector->num_components,
+    getMaxFilterDims((const CvLSVMFilterObjectCaskade**)(detector->filters), detector->num_components,
                      detector->num_part_filters, &maxXBorder, &maxYBorder);
     // Create feature pyramid with nullable border
     H = createFeaturePyramidWithBorder(image, maxXBorder, maxYBorder);
@@ -122,7 +122,7 @@ CvSeq* cvLatentSvmDetectObjectsCaskad(IplImage* image,
     FeaturePyramid32(H, maxXBorder, maxYBorder);
 	
     // Search object
-    error = searchObjectThresholdSomeComponents(H, H_PCA,(const CvLSVMFilterObjectCaskad**)(detector->filters),
+    error = searchObjectThresholdSomeComponents(H, H_PCA,(const CvLSVMFilterObjectCaskade**)(detector->filters),
         detector->num_components, detector->num_part_filters, detector->b, detector->score_threshold,
         &points, &oppPoints, &score, &kPoints);
     if (error != LATENT_SVM_OK)
@@ -186,7 +186,7 @@ LatentSvmDetector::~LatentSvmDetector()
 void LatentSvmDetector::clear()
 {
     for( size_t i = 0; i < detectors.size(); i++ )
-      cv::lsvmcascade::cvReleaseLatentSvmDetectorCaskad( &detectors[i] );
+      cv::lsvmcascade::cvReleaseLatentSvmDetectorCaskade( &detectors[i] );
     detectors.clear();
 
     classNames.clear();
@@ -237,7 +237,7 @@ bool LatentSvmDetector::load( const vector<string>& filenames, const vector<stri
         if( filename.length() < 5 || filename.substr(filename.length()-4, 4) != ".xml" )
             continue;
 
-        CvLatentSvmDetectorCaskad* detector = cvLoadLatentSvmDetectorCaskad( filename.c_str() );
+        CvLatentSvmDetectorCaskade* detector = cvLoadLatentSvmDetectorCaskade( filename.c_str() );
         if( detector )
         {
             detectors.push_back( detector );
@@ -263,7 +263,7 @@ void LatentSvmDetector::detect( const Mat& image,
     {
         IplImage image_ipl = image;
         CvMemStorage* storage = cvCreateMemStorage(0);
-        CvSeq* detections = cv::lsvmcascade::cvLatentSvmDetectObjectsCaskad( &image_ipl, (CvLatentSvmDetectorCaskad*)(detectors[classID]), storage, overlapThreshold);
+        CvSeq* detections = cv::lsvmcascade::cvLatentSvmDetectObjectsCaskade( &image_ipl, (CvLatentSvmDetectorCaskade*)(detectors[classID]), storage, overlapThreshold);
 
         // convert results
         objectDetections.reserve( objectDetections.size() + detections->total );
