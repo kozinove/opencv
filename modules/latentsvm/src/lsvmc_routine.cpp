@@ -2,7 +2,7 @@
 #include "_lsvmc_routine.h"
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 int allocFilterObject(CvLSVMFilterObjectCaskade **obj, const int sizeX,
                       const int sizeY, const int numFeatures) 

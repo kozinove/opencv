@@ -24,7 +24,7 @@
 #define VAL_OF_TRUNCATE 0.2f 
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 
 //////////////////////////////////////////////////////////////

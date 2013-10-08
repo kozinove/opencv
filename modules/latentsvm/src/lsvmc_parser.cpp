@@ -6,7 +6,7 @@
 
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 
 int isMODEL    (char *str){

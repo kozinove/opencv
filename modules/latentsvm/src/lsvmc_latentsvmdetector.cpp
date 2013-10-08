@@ -3,7 +3,7 @@
 #include "_lsvmc_matching.h"
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 
 const int pca_size = 31;
@@ -186,7 +186,7 @@ LatentSvmDetector::~LatentSvmDetector()
 void LatentSvmDetector::clear()
 {
     for( size_t i = 0; i < detectors.size(); i++ )
-      cv::lsvmcascade::cvReleaseLatentSvmDetectorCaskade( &detectors[i] );
+      cv::lsvmc::cvReleaseLatentSvmDetectorCaskade( &detectors[i] );
     detectors.clear();
 
     classNames.clear();
@@ -263,7 +263,7 @@ void LatentSvmDetector::detect( const Mat& image,
     {
         IplImage image_ipl = image;
         CvMemStorage* storage = cvCreateMemStorage(0);
-        CvSeq* detections = cv::lsvmcascade::cvLatentSvmDetectObjectsCaskade( &image_ipl, (CvLatentSvmDetectorCaskade*)(detectors[classID]), storage, overlapThreshold);
+        CvSeq* detections = cv::lsvmc::cvLatentSvmDetectObjectsCaskade( &image_ipl, (CvLatentSvmDetectorCaskade*)(detectors[classID]), storage, overlapThreshold);
 
         // convert results
         objectDetections.reserve( objectDetections.size() + detections->total );

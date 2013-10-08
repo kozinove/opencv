@@ -19,7 +19,7 @@
 
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 
 

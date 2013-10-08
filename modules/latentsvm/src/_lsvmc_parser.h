@@ -67,7 +67,7 @@
 
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 
     int loadModel(

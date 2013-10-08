@@ -144,7 +144,7 @@ typedef struct CvObjectDetection
 */
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 CVAPI(CvLatentSvmDetectorCaskade*) cvLoadLatentSvmDetectorCaskade(const char* filename);
 
@@ -200,7 +200,7 @@ namespace cv
  * 2) make it possible to load and detect more than one class (model) unlike CvLatentSvmDetector.
  */
 
-namespace lsvmcascade
+namespace lsvmc
 {
 class CV_EXPORTS LatentSvmDetector
 {

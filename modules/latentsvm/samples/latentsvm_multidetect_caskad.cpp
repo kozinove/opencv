@@ -1,6 +1,8 @@
 #include <iostream>
+#include "opencv2/ts/ts.hpp"
 #include "opencv2/latentsvm/latentsvm.hpp"
 #include "opencv2/highgui/highgui.hpp"
+#include "opencv2/imgproc/imgproc.hpp"
 #include "opencv2/contrib/contrib.hpp"
 
 #ifdef WIN32
@@ -36,11 +38,11 @@ static void help()
             endl;
 }
 
-static void detectAndDrawObjects( Mat& image, lsvmcascade::LatentSvmDetector& detector, const vector<Scalar>& colors, float overlapThreshold, int numThreads )
+static void detectAndDrawObjects( Mat& image, lsvmc::LatentSvmDetector& detector, const vector<Scalar>& colors, float overlapThreshold, int numThreads )
 {
-    vector<lsvmcascade::LatentSvmDetector::ObjectDetection> detections;
+    vector<lsvmc::LatentSvmDetector::ObjectDetection> detections;
 
-    TickMeter tm;
+    cv::TickMeter tm;
     tm.start();
     detector.detect( image, detections, overlapThreshold);
     tm.stop();
@@ -52,13 +54,13 @@ static void detectAndDrawObjects( Mat& image, lsvmcascade::LatentSvmDetector& de
 
     for( size_t i = 0; i < detections.size(); i++ )
     {
-        const lsvmcascade::LatentSvmDetector::ObjectDetection& od = detections[i];
+        const lsvmc::LatentSvmDetector::ObjectDetection& od = detections[i];
         rectangle( image, od.rect, colors[od.classID], 3 );
     }
     // put text over the all rectangles
     for( size_t i = 0; i < detections.size(); i++ )
     {
-        const lsvmcascade::LatentSvmDetector::ObjectDetection& od = detections[i];
+        const lsvmc::LatentSvmDetector::ObjectDetection& od = detections[i];
         putText( image, classNames[od.classID], Point(od.rect.x+4,od.rect.y+13), FONT_HERSHEY_SIMPLEX, 0.55, colors[od.classID], 2 );
     }
 }
@@ -127,7 +129,7 @@ int main(int argc, char* argv[])
     readDirectory( images_folder, images_filenames );
     readDirectory( models_folder, models_filenames );
 
-    lsvmcascade::LatentSvmDetector detector( models_filenames );
+    lsvmc::LatentSvmDetector detector( models_filenames );
     if( detector.empty() )
     {
         cout << "Models cann't be loaded" << endl;

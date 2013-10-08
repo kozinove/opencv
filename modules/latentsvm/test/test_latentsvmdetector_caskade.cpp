@@ -93,7 +93,7 @@ void CV_LatentSVMDetectorCaskadeTest::run( int /* start_from */)
     }
 
     CvLatentSvmDetectorCaskade* detector;
-    detector = cv::lsvmcascade::cvLoadLatentSvmDetectorCaskade(model_path.c_str());
+    detector = cv::lsvmc::cvLoadLatentSvmDetectorCaskade(model_path.c_str());
     if (!detector)
     {
         ts->set_failed_test_info( cvtest::TS::FAIL_INVALID_TEST_DATA );
@@ -103,7 +103,7 @@ void CV_LatentSVMDetectorCaskadeTest::run( int /* start_from */)
 
     CvMemStorage* storage = cvCreateMemStorage(0);
     CvSeq* detections = 0;
-    detections = cv::lsvmcascade::cvLatentSvmDetectObjectsCaskade(image, detector, storage, 0.5f);
+    detections = cv::lsvmc::cvLatentSvmDetectObjectsCaskade(image, detector, storage, 0.5f);
     if (detections->total != num_detections)
     {
         ts->set_failed_test_info( cvtest::TS::FAIL_MISMATCH );
@@ -127,7 +127,7 @@ void CV_LatentSVMDetectorCaskadeTest::run( int /* start_from */)
     init.terminate();
 #endif
     cvReleaseMemStorage( &storage );
-    cv::lsvmcascade::cvReleaseLatentSvmDetectorCaskade( &detector );
+    cv::lsvmc::cvReleaseLatentSvmDetectorCaskade( &detector );
     cvReleaseImage( &image );
 }
 
@@ -139,12 +139,12 @@ protected:
     void run(int);
 };
 
-static void writeDetections( FileStorage& fs, const string& nodeName, const vector<lsvmcascade::LatentSvmDetector::ObjectDetection>& detections )
+static void writeDetections( FileStorage& fs, const string& nodeName, const vector<lsvmc::LatentSvmDetector::ObjectDetection>& detections )
 {
     fs << nodeName << "[";
     for( size_t i = 0; i < detections.size(); i++ )
     {
-        const lsvmcascade::LatentSvmDetector::ObjectDetection& d = detections[i];
+        const lsvmc::LatentSvmDetector::ObjectDetection& d = detections[i];
         fs << d.rect.x << d.rect.y << d.rect.width << d.rect.height
            << d.score << d.classID;
     }
@@ -152,7 +152,7 @@ static void writeDetections( FileStorage& fs, const string& nodeName, const vect
 }
 
 static void readDetections( FileStorage fs, const string& nodeName, 
-                           vector<lsvmcascade::LatentSvmDetector::ObjectDetection>& detections )
+                           vector<lsvmc::LatentSvmDetector::ObjectDetection>& detections )
 {
     detections.clear();
 
@@ -160,15 +160,15 @@ static void readDetections( FileStorage fs, const string& nodeName,
     FileNodeIterator fni = fn.begin();
     while( fni != fn.end() )
     {
-        lsvmcascade::LatentSvmDetector::ObjectDetection d;
+        lsvmc::LatentSvmDetector::ObjectDetection d;
         fni >> d.rect.x >> d.rect.y >> d.rect.width >> d.rect.height
             >> d.score >> d.classID;
         detections.push_back( d );
     }
 }
 
-static inline bool isEqualCaskad( const lsvmcascade::LatentSvmDetector::ObjectDetection& d1, 
-                           const lsvmcascade::LatentSvmDetector::ObjectDetection& d2, int eps, float threshold)
+static inline bool isEqualCaskad( const lsvmc::LatentSvmDetector::ObjectDetection& d1, 
+                           const lsvmc::LatentSvmDetector::ObjectDetection& d2, int eps, float threshold)
 {
     return (
            std::abs(d1.rect.x - d2.rect.x) <= eps
@@ -181,16 +181,16 @@ static inline bool isEqualCaskad( const lsvmcascade::LatentSvmDetector::ObjectDe
 }
 
 
-bool compareResults( const vector<lsvmcascade::LatentSvmDetector::ObjectDetection>& calc, 
-                    const vector<lsvmcascade::LatentSvmDetector::ObjectDetection>& valid, int eps, float threshold)
+bool compareResults( const vector<lsvmc::LatentSvmDetector::ObjectDetection>& calc, 
+                    const vector<lsvmc::LatentSvmDetector::ObjectDetection>& valid, int eps, float threshold)
 {
     if( calc.size() != valid.size() )
         return false;
 
     for( size_t i = 0; i < calc.size(); i++ )
     {
-        const lsvmcascade::LatentSvmDetector::ObjectDetection& c = calc[i];
-        const lsvmcascade::LatentSvmDetector::ObjectDetection& v = valid[i];
+        const lsvmc::LatentSvmDetector::ObjectDetection& c = calc[i];
+        const lsvmc::LatentSvmDetector::ObjectDetection& v = valid[i];
         if( !isEqualCaskad(c, v, eps, threshold) )
         {
             std::cerr << "Expected: " << v.rect << " class=" << v.classID << " score=" << v.score << std::endl;
@@ -229,12 +229,12 @@ void LatentSVMDetectorCaskadeTest::run( int /* start_from */)
     // detector12 - to test case of two (several) classes 'cat' and car
 
     // Load detectors
-    lsvmcascade::LatentSvmDetector detector1( vector<string>(1,model_path_cat) );
+    lsvmc::LatentSvmDetector detector1( vector<string>(1,model_path_cat) );
 
     vector<string> models_pathes(2);
     models_pathes[0] = model_path_cat;
     models_pathes[1] = model_path_car;
-    lsvmcascade::LatentSvmDetector detector12( models_pathes );
+    lsvmc::LatentSvmDetector detector12( models_pathes );
 
     if( detector1.empty() || detector12.empty() || detector12.getClassCount() != 2 )
     {
@@ -244,7 +244,7 @@ void LatentSVMDetectorCaskadeTest::run( int /* start_from */)
 
     // 1. Test method detect
     // Run detectors
-    vector<lsvmcascade::LatentSvmDetector::ObjectDetection> detections1_cat, detections12_cat, detections12_cars;
+    vector<lsvmc::LatentSvmDetector::ObjectDetection> detections1_cat, detections12_cat, detections12_cars;
     detector1.detect( image_cat, detections1_cat, 0.5);
     detector12.detect( image_cat, detections12_cat, 0.5);
     detector12.detect( image_cars, detections12_cars, 0.5);
@@ -253,7 +253,7 @@ void LatentSVMDetectorCaskadeTest::run( int /* start_from */)
     FileStorage fs( true_res_path, FileStorage::READ );
     if( fs.isOpened() )
     {
-        vector<lsvmcascade::LatentSvmDetector::ObjectDetection> true_detections1_cat, true_detections12_cat, true_detections12_cars;
+        vector<lsvmc::LatentSvmDetector::ObjectDetection> true_detections1_cat, true_detections12_cat, true_detections12_cars;
         readDetections( fs, "detections1_cat", true_detections1_cat );
         readDetections( fs, "detections12_cat", true_detections12_cat );
         readDetections( fs, "detections12_cars", true_detections12_cars );

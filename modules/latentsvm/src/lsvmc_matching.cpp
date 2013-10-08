@@ -11,7 +11,7 @@
 #endif
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 /*
 // Computation border size for feature map

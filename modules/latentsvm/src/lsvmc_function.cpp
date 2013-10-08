@@ -2,7 +2,7 @@
 #include "_lsvmc_function.h"
 namespace cv
 {
-namespace lsvmcascade
+namespace lsvmc
 {
 
 float calcM    (int k,int di,int dj, const CvLSVMFeaturePyramidCaskade * H, const CvLSVMFilterObjectCaskade *filter){
